@@ -1,8 +1,7 @@
 def fibonacci(n):
-    if n <= 0:
-        print("n phải là số nguyên dương")
+    assert isinstance(n, int) and n > 0, 'n phải là số nguyên dương'
     # First Fibonacci number is 0
-    elif n == 1:
+    if n == 1:
         return 0
     # Second Fibonacci number is 1
     elif n == 2:
