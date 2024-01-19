@@ -7,4 +7,4 @@ def sumOfDigits(n):
     return (n % 10) + sumOfDigits(n //10)
 
 
-print(sumOfDigits(-12.4))
+print(sumOfDigits(-123))
