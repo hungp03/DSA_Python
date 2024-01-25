@@ -1,5 +1,3 @@
-import numpy as np
-
 def rotateMatrix(matrix):
     n = len(matrix)
     for layer in range(n // 2):
@@ -17,7 +15,7 @@ def rotateMatrix(matrix):
             matrix[i][-layer - 1] = temp
 
 
-matrix = np.array( [[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 rotateMatrix(matrix)
 for row in matrix:
     print(row)
