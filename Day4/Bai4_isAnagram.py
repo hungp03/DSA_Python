@@ -8,11 +8,17 @@ def isAnagram(str1, str2):
         return True
     return False
 
-inp = input("Enter two strings, separated by spaces: ")
+# inp = input("Enter two strings, separated by spaces: ")
 
-s = inp.split()
+# s = inp.split()
+# print(s)
+# if len(s) == 2 and isAnagram(s[0], s[1]):
+#     print('The strings are anagrams')
+# else:
+#     print("The strings aren't anagrams or input not correct")
 
-if len(s) == 2 and isAnagram(s[0], s[1]):
+s1, s2 = 'restful', 'fluster'
+if isAnagram(s1, s2):
     print('The strings are anagrams')
 else:
-    print("The strings aren't anagrams or input not correct")
+    print("The strings aren't anagrams")
