@@ -5,6 +5,185 @@ class Node:
 
 class SingleLinkedList:
     def __init__(self):
+        # Khởi tạo head và tail
+        self.head = None
+        self.tail = None
+        # Độ dài
+        self.length = 0
+    
+    def __str__(self):
+        temp_node = self.head
+        result = ''
+        # Duyệt đến cuối dslk
+        while temp_node:
+            result += str(temp_node.data)
+            # Nếu còn node tiếp theo
+            if temp_node.next:
+                result += ' -> '
+            temp_node = temp_node.next
+        return result
+    
+    def append(self, value):
+        new_node = Node(value)
+        # Nếu chưa có node nào, gắn tail và head là node đó
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        # Nếu có rồi thì gắn vào tail
+        else:
+            self.tail.next = new_node
+            self.tail = new_node
+        # Tăng độ dài của dslk lên 1
+        self.length += 1
+    
+    def prepend(self, value):
+        new_node = Node(value)
+        # Chưa có node thì khởi tạo head và tail
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        # Đã có node -> gắn node mới vào head, new_node trỏ tới head
+        else:
+            new_node.next = self.head
+            self.head = new_node
+        # Tăng độ dài thêm 1
+        self.length += 1
+    
+    def insert(self, index, value):
+        new_node = Node(value)
+        # Nếu index = 0 thì dùng prepend
+        if index == 0:
+            self.prepend(value)
+        # index = length => dùng append
+        elif index == self.length:
+            self.append(value)
+        else:
+            new_node = Node(value)
+            temp_node = self.head
+            # Duyệt đến node trước vị trí
+            for _ in range(index - 1):
+                temp_node = temp_node.next
+            # Gắn next của new node là next của temp
+            # VD: 1 - 2 - 3 - 5, chèn 4 vào vị trí 3
+            # Gắn next của 4 là 5, sau đó gắn next của 3 là 4
+            new_node.next = temp_node.next
+            temp_node.next = new_node
+            self.length += 1
+    
+    # Hàm này tương tự hàm __str__
+    def traverse(self):
+        current = self.head
+        while current:
+            print(current.data)
+            current = current.next
+    
+    def search(self, target):
+        current = self.head
+        index = 0
+        # Duyệt tuần tự từ đầu ds
+        while current:
+            if current.data == target:
+                return index
+            current = current.next
+            index += 1
+        # Không tìm thấy thì trả về -1
+        return -1
+    
+    def get(self, index):
+        # Lấy index tương tự như các kiểu khác (-1 là cuối cùng)
+        if index == -1:
+            return self.tail
+        # Ngoại lệ
+        elif index < -1 or index >= self.length:
+            return None
+        current = self.head
+        # Duyệt từ đầu đến index để lấy node cần tìm
+        for _ in range(index):
+            current = current.next
+        return current
+    
+    def set_value(self, index, value):
+        # Dùng get để lấy node đang cần
+        temp = self.get(index)
+        # Nếu temp không phải None
+        if temp:
+            temp.data = value
+            return True
+        # Trả về false nếu không set thành công
+        return False
+    
+    def pop_first(self):
+        # ds trống, không làm gì cả
+        if self.length == 0:
+            return None
+        popped_node = self.head
+        # Nếu ds có 1 node duy nhất => gắn head và tail là None
+        if self.length == 1:
+            self.head = self.tail = None
+        # Ngược lại, gán head trỏ đến node tiếp theo
+        # Cắt bỏ liên kết của head cũ
+        else:
+            self.head = self.head.next
+            popped_node.next = None
+        self.length -= 1
+        # Trả về kq của node đã xóa
+        return popped_node
+    
+    
+    
+    def pop(self):
+        if self.length == 0:
+            return None
+        popped_node = self.tail
+        if self.length == 1:
+            self.head = self.tail = None
+        else:
+            temp = self.head
+            # Duyệt đến node kế cuối
+            while temp.next is not self.tail:
+                temp = temp.next
+            # Gắn node kế cuối là tail, loại bỏ liên kết đến node cuối cùng
+            temp.next = None
+            self.tail = temp
+        self.length -= 1
+        return popped_node
+    
+
+    def remove(self, index):
+        if index < -1 or index >= self.length:
+            return None
+        if index == 0:
+            return self.pop_first()
+        if index == -1 or index == self.length-1:
+            return self.pop()
+        # node liền trước node cần xóa
+        prev_node = self.get(index-1)
+        # popped_node là node ta muốn xóa
+        popped_node = prev_node.next
+        # gán node liền trước trỏ tới node sau node cần xóa
+        prev_node.next = popped_node.next
+        # Loại bỏ liên kết next của node đang xóa
+        popped_node.next = None
+        self.length -= 1
+        return popped_node
+    
+
+
+sll = SingleLinkedList()
+sll.append(1)
+sll.append(2)
+sll.append(3)
+sll.append(4)
+print(sll)
+sll.remove(0)
+print(sll)
+
+
+
+# Old version        
+"""
+class SingleLinkedList:
+    def __init__(self):
         self.head = None
 
     # Chèn vào cuối
@@ -126,11 +305,4 @@ class SingleLinkedList:
         # Gắn next của node 1 trỏ đến node 3
             node_tmp.next = node_tmp.next.next
 
-
-dslk = SingleLinkedList()
-dslk.append(1)
-dslk.append(2)
-dslk.insert_front(0)
-dslk.insert(6,2)
-dslk.delete(2)
-dslk.display()
+"""
