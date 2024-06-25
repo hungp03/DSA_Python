@@ -1,0 +1,8 @@
+apple`$noun`$a fruit`$this is an apple
+hello`$exclamation`$used to express a greeting or answer the telephone or attract attention`$hello
+hello`$greeting`$used when meeting or greeting someone`$hello guys
+race`$noun`$a competition`$a race
+race`$verb`$test`$racing
+world`$noun`$the earth - together with all of its countries - peoples and natural features`$this is my world
+test`$test`$test`$test
+

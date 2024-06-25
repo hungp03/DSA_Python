@@ -1,0 +1,3 @@
+example`$noun`$A thing characteristic of its kind or illustrating a general rule.`$This is an example of good usage.
+apple`$noun`$a fruit`$An apple
+test`$test`$test`$test
